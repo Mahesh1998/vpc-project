@@ -41,3 +41,31 @@ variable "Aws_Private_Subnet_Tags" {
 variable "Aws_Map_Public_Ip_On_Launch_Private" {
   type = bool
 }
+
+variable "Igw_Tags" {
+  type = map(any)
+}
+
+variable "Aws_Nat_Gateway_Tags" {
+  type = map(any)
+}
+
+variable "VPC_EIP_Flag" {
+  type = bool
+}
+
+variable "Aws_Ip_Pool" {
+  type = string
+}
+
+variable "Aws_Public_Route_Table_Tags" {
+  type = map(any)
+}
+
+variable "Ipv4_Cidr" {
+  type = string
+}
+
+variable "Aws_Private_Route_Table_Tags" {
+  type = map(any)
+}
