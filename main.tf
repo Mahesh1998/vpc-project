@@ -45,44 +45,18 @@ module "nat_gateway" {
 }
 
 module "public_route_table" {
-  source = "./modules/route_table"
-  Vpc_Id = module.vpc.vpc_id
-  Routes = [{
-    cidr_block                 = var.Ipv4_Cidr,
-    gateway_id                 = module.internet_gateway.internet_gateway_id,
-    carrier_gateway_id         = "",
-    destination_prefix_list_id = "",
-    egress_only_gateway_id     = "",
-    instance_id                = "",
-    ipv6_cidr_block            = "",
-    local_gateway_id           = "",
-    nat_gateway_id             = "",
-    network_interface_id       = "",
-    transit_gateway_id         = "",
-    vpc_endpoint_id            = "",
-    vpc_peering_connection_id  = ""
-  }]
+  source           = "./modules/route_table"
+  Vpc_Id           = module.vpc.vpc_id
+  Cidr_Block       = var.Ipv4_Cidr
+  Gateway_Id       = module.internet_gateway.internet_gateway_id
   Route_Table_Tags = var.Aws_Public_Route_Table_Tags
 }
 
 module "private_route_table" {
-  source = "./modules/route_table"
-  Vpc_Id = module.vpc.vpc_id
-  Routes = [{
-    cidr_block                 = var.Ipv4_Cidr
-    gateway_id                 = ""
-    carrier_gateway_id         = ""
-    destination_prefix_list_id = ""
-    egress_only_gateway_id     = ""
-    instance_id                = ""
-    ipv6_cidr_block            = ""
-    local_gateway_id           = ""
-    nat_gateway_id             = module.nat_gateway.nat_gateway_id
-    network_interface_id       = ""
-    transit_gateway_id         = ""
-    vpc_endpoint_id            = ""
-    vpc_peering_connection_id  = ""
-  }]
+  source           = "./modules/route_table"
+  Vpc_Id           = module.vpc.vpc_id
+  Cidr_Block       = var.Ipv4_Cidr
+  Nat_Gateway_Id   = module.nat_gateway.nat_gateway_id
   Route_Table_Tags = var.Aws_Private_Route_Table_Tags
 }
 
@@ -99,3 +73,5 @@ module "private_route_table_subnet_association" {
   Subnet_Id      = module.private_subnet[count.index].subnet_ids
   Route_Table_Id = module.private_route_table.route_table_id
 }
+
+
