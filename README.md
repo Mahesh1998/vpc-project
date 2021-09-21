@@ -100,7 +100,7 @@ Here all the child modules are called in main terraform file by passing values a
 2. This module is used for Public Route Table Subnet Assosciation
 3. The values of variables declared in child module are passed in this module.
 4. Input for variables is passed using terraform.tfvars
-5. Public Subnet Id is derived from the output variable of public_subnet module.
+5. Public Subnet Ids is derived from the output variable of public_subnet module.
 6. Public Route Table Id is derived from the output variable of public_route_table module.
 
 ### Private Route Table Subnet Assosciation
@@ -108,5 +108,38 @@ Here all the child modules are called in main terraform file by passing values a
 2. This module is used for Private Route Table Subnet Assosciation
 3. The values of variables declared in child module are passed in this module.
 4. Input for variables is passed using terraform.tfvars
-5. Private Subnet Id is derived from the output variable of private_subnet module.
+5. Private Subnet Ids is derived from the output variable of private_subnet module.
 6. Private Route Table Id is derived from the output variable of private_route_table module.
+
+### RDS Module
+1. The RDS module is being called by the parent module.
+2. This module is used for RDS creation
+3. The values of variables declared in child module are passed in this module.
+4. Input for variables is passed using terraform.tfvars
+5. VPC Id is derived from the output variable of vpc module.
+6. Private Subnet Ids is derived from the output variable of private_subnet module.
+
+### Load Balancer Listener Default Target Group Module
+1. The Target Group module is being called by the parent module.
+2. This module is used for Load Balancer Listener Default Target Group creation
+3. The values of variables declared in child module are passed in this module.
+4. Input for variables is passed using terraform.tfvars
+5. VPC Id is derived from the output variable of vpc module.
+
+### Application Load Balancer Module
+1. The Application Load Balancer module is being called by the parent module.
+2. This module is used for Application Load Balancer creation
+3. The values of variables declared in child module are passed in this module.
+4. Input for variables is passed using terraform.tfvars
+5. VPC Id is derived from the output variable of vpc module.
+6. Public Subnet Ids is derived from the output variable of public_subnet module.
+7. Target Group ARN is derived from the output variable of load_balancer_listener_default_target_group module
+
+### Auto Scaling Group Module
+1. The Auto Scaling Group module is being called by the parent module.
+2. This module is used for Auto Scaling Group creation
+3. The values of variables declared in child module are passed in this module.
+4. Input for variables is passed using terraform.tfvars
+5. VPC Id is derived from the output variable of vpc module.
+6. Private Subnet Ids is derived from the output variable of private_subnet module.
+7. Target Group ARN is derived from the output variable of load_balancer_listener_default_target_group module
